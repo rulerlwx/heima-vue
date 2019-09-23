@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <label>
+            ID：<input type="text" v-model="id">
+        </label>
+        <label>
+            Name：<input type="text" v-model="name">
+        </label>
+        <input type="button" value="添加" @click="add"/>
+        <!--绑定key，指定唯一的字符或数字为key-->
+        <p v-for="item in list" :key="item.id">
+            <input type="checkbox">{{item.id}}---{{item.name}}
+        </p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                id:'',
+                name:'',
+                list:[
+                    {id:1,name:'李斯'},
+                    {id:2,name:'赢政'},
+                    {id:3,name:'越高'},
+                    {id:4,name:'韩非'},
+                    {id:5,name:'荀子'}
+                ]
+            },
+            methods:{
+                add(){
+                    // 判断重复添加，todo...
+                    this.list.push({id:this.id,name:this.name})
+                }
+            }
+        })
+    </script>
+</body>
+</html>

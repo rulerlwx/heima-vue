@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跑马灯效果</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input value="浪起来" type="button" @click="lang"/>
+        <input value="低调" type="button" @click="stop"/>
+        <h4>{{msg}}</h4>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg: '猥琐发育，别浪~~~',
+                intervalId:null
+            },
+            methods:{
+                lang(){
+                    if (this.intervalId != null) {
+                        return;
+                    }
+                    // 每次调用setInterval()方法，都返回ID
+                    this.intervalId = setInterval(() => {
+                        var start = this.msg.substr(0, 1);
+                        var end = this.msg.substr(1);
+                        this.msg = end + start;
+                    },400);
+                },
+                stop(){
+                    clearInterval(this.intervalId);
+                    // 停止后，需将intervalId置为null
+                    this.intervalId = null;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

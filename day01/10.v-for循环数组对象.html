@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p v-for="user in list">{{user.id}},{{user.name}}</p>
+        <!--拿到索引-->
+        <p v-for="(user,i) in list">{{user.id}},{{user.name}},索引：{{i}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                list:[
+                    {id:1,name:'zs1'},
+                    {id:2,name:'zs2'},
+                    {id:3,name:'zs3'},
+                    {id:4,name:'zs4'}
+                ]
+            },
+            methods:{}
+        })
+    </script>
+</body>
+</html>

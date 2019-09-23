@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--(val,key)，对象属性的值在前面，名称在后面-->
+        <p v-for="(val,key) in user">{{val}},{{key}}</p>
+        <!--对象的索引-->
+        <p v-for="(val,key,i) in user">{{val}},{{key}},索引：{{i}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                user:{
+                    id:1,
+                    name:'托尼·波斯顿',
+                    gender:'男'
+                }
+            },
+            methods:{}
+        })
+    </script>
+</body>
+</html>

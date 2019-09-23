@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue中使用样式-class</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+        .thin {
+            font-weight: 200;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .active{
+            letter-spacing: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--以前的class样式使用方法-->
+        <h1 class="red thin">这是一个很大很大的H1</h1>
+        <!--vue方式，数组-->
+        <h1 :class="['red','thin']">这是一个很大很大的H1</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{}
+        })
+    </script>
+</body>
+</html>
