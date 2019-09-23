@@ -32,34 +32,53 @@
             <tr v-for="item in search2(keywords)" :key="item.id">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.ctime}}</td>
+                <td>{{item.ctime | dateFormat('yyyy-mm-dd')}}</td>
                 <td><a href="" @click.prevent="del2(item.id)">删除</a></td>
             </tr>
             </tbody>
         </table>
     </div>
+    <div id="app2">
+
+    </div>
     <script>
+        // 全局-过滤器-时间格式化
+        // pattern="" 默认赋值为""
+        Vue.filter('dateFormat', function (dateStr, pattern="") {
+            var dt = new Date(dateStr);
+            var y = dt.getFullYear();
+            var m = dt.getMonth();
+            var d = dt.getDate();
+            if (pattern.toLowerCase() == "yyyy-mm-dd") {
+                return `${y}-${m}-${d}`;// esc 下面那个键
+            } else {
+                var h = dt.getHours();
+                var min = dt.getMinutes().toString().padStart(2,0);
+                var s = dt.getSeconds();
+                return `${y}-${m}-${d} ${h}:${min}:${s}`;
+            }
+        });
         var vm = new Vue({
-            el:'#app',
-            data:{
-                id:'',
-                name:'',
-                keywords:'',
-                list:[
-                    {id:1,name:'奔驰',ctime:new Date()},
-                    {id:2,name:'宝马',ctime:new Date()},
-                    {id:3,name:'现代',ctime:new Date()}
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                keywords: '',
+                list: [
+                    {id: 1, name: '奔驰', ctime: new Date()},
+                    {id: 2, name: '宝马', ctime: new Date()},
+                    {id: 3, name: '现代', ctime: new Date()}
                 ]
             },
-            methods:{
-                add(){
+            methods: {
+                add() {
                     this.list.push({id: this.id, name: this.name, ctime: new Date()});
                     this.id = this.name = '';
                 },
                 // 删除方式一
-                del(id){
+                del(id) {
                     // some() 用于循环数组
-                    this.list.some((item,i) => {
+                    this.list.some((item, i) => {
                         if (item.id == id) {
                             // 调用数组的 splice() 方法删除元素
                             this.list.splice(i, 1);
@@ -68,7 +87,7 @@
                     });
                 },
                 // 删除方式二
-                del2(id){
+                del2(id) {
                     var index = this.list.findIndex(item => {
                         if (item.id == id) {
                             return true;
@@ -76,7 +95,7 @@
                     });
                     this.list.splice(index, 1);
                 },
-                search(keywords){
+                search(keywords) {
                     var newList = [];
                     this.list.forEach(item => {
                         if (item.name.indexOf(keywords) != -1) {
@@ -88,11 +107,11 @@
                     // 看示例："abc".indexOf('') = 0
                     // 因为 不等于 -1，所有都加入新的数组中
                 },
-                search2(keywords){
+                search2(keywords) {
                     // 注意：forEach some filter findIndex 这些都属于数组的新方法
                     // 都会对数组的每一项进行遍历，执行相关操作
                     // filter() 是 es6 提供的方法
-                    var newList = this.list.filter(item =>{
+                    var newList = this.list.filter(item => {
                         if (item.name.includes(keywords)) {
                             return 1;// 随便返回一个值，即：有返回值即可
                             // return true;
@@ -101,7 +120,17 @@
                     return newList;
                 }
             }
-        })
+        });
+        var vm2 = new Vue({
+           el:'#app2',
+           data: {},
+           methods:{},
+           filters:{
+               dateFormat:function (dateStr,pattern="") {
+                   dateStr.padStart()
+               }
+           }
+        });
     </script>
 </body>
 </html>
