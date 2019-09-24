@@ -14,9 +14,9 @@
             </div>
             <div class="panel-body form-inline">
                 <label>ID:<input type="text" class="form-control" v-model="id"></label>
-                <label>Name:<input type="text" class="form-control" v-model="name"></label>
+                <label>Name:<input type="text" class="form-control" v-model="name" @keyup.enter="add"></label>
                 <input type="button" value="添加" class="btn btn-primary" @click="add"/>
-                <label>搜索名称关键字：<input type="text" class="form-control" v-model="keywords"/> </label>
+                <label>搜索名称关键字：<input type="text" class="form-control" v-model="keywords" v-focus v-color="'red'"/> </label>
             </div>
         </div>
         <table class="table table-bordered table-hover table-striped">
@@ -39,7 +39,7 @@
         </table>
     </div>
     <div id="app2">
-
+        <label v-fontweight="'initial'" v-fontsize="'30px'">这是一行文字</label>
     </div>
     <script>
         // 全局-过滤器-时间格式化
@@ -56,6 +56,25 @@
                 var min = dt.getMinutes().toString().padStart(2,0);
                 var s = dt.getSeconds();
                 return `${y}-${m}-${d} ${h}:${min}:${s}`;
+            }
+        });
+        Vue.directive('focus',{
+            // 第一个参数 el：表示被绑定了指令的那个元素，是一个原生 js 对象
+            bind:function (el) {
+
+            },
+            inserted:function (el) {
+                el.focus();
+            },
+            update:function () {
+
+            }
+        });
+        Vue.directive('color', {
+            bind: function (el,binding) {
+                // 内联样式
+                // el.style.color = 'red';// 不应该写死，参数应该从页面传来
+                el.style.color = binding.value;
             }
         });
         var vm = new Vue({
@@ -129,7 +148,19 @@
                dateFormat:function (dateStr,pattern="") {
                    dateStr.padStart()
                }
-           }
+           },
+            directives:{
+               'fontweight':{
+                   bind: function (el, binding) {
+                       el.style.fontWeight = binding.value;
+                   }
+               },
+                // 指令简写，只应用在 bind/update 阶段
+                'fontsize':function (el,binding) {
+                   console.log(binding.value)
+                    el.style.fontSize = parseInt(binding.value) + 'px';
+                }
+            }
         });
     </script>
 </body>
