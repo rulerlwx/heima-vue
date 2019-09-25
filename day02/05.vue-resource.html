@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-resource</title>
+    <script src="../js/vue.js"></script>
+    <!--注意导包顺序，先 vue.js，再 vue-resource.js-->
+    <script src="../js/vue-resource.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap-3.3.7.css">
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="Get请求" @click="getInfo"/>
+        <input type="button" value="Post请求" @click="postInfo"/>
+        <input type="button" value="JSONP请求" @click="jsonpInfo"/>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+                getInfo(){
+                    this.$http.get('http://127.0.0.1:8080/vue/get').then(function (result) {
+                        console.log(result.data)
+                    })
+                },
+                postInfo(){
+                    // 第三个参数设置为 emulateJSON: true
+                    this.$http.post('http://127.0.0.1:8080/vue/post', {}, {emulateJSON: true}).then(function (result) {
+                        console.log(result);
+                    });
+                },
+                jsonpInfo(){
+                    this.$http.jsonp('http://127.0.0.1:8080/vue/post').then(function (_jsonpd37sod0bni4) {
+                        console.log(_jsonpd37sod0bni4.body)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨域问题</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style-type: none;/*列表前面的 * 号去掉*/
+        }
+        img,input{
+            display: block;
+            margin: 30px auto;
+        }
+        #search{
+            width: 550px;
+            height: 30px;
+            margin-bottom: 0;/*下边距*/
+        }
+        #sugList {
+            display: none;
+            width: 552px;
+            margin: auto;
+            border: 1px solid #000;
+            border-top: 0;
+        }
+        #sugList ul li {
+            line-height: 30px;
+            text-indent: 20px;
+        }
+        #sugList ul li:hover {
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <img src="../img/baidu.gif" width="260" alt="baidu">
+    <input id="search" type="text">
+    <div id="sugList">
+        <ul>
+            <!--<li>aa</li>
+            <li>aa</li>
+            <li>aa</li>
+            <li>aa</li>
+            <li>aa</li>-->
+        </ul>
+    </div>
+    <script>
+        var search = document.getElementById("search");
+        var suglist = document.getElementById("sugList");
+        var ul = document.querySelector("#sugList ul");
+        search.onkeyup = function search() {
+            var sugScript = document.createElement("script");
+            sugScript.src = "https://www.baidu.com/sugrec?prod=pc&wd=" + this.value + "&cb=getSug";
+            document.body.appendChild(sugScript);
+        }
+        function getSug(result) {
+            var data = result.g;
+            if(data != undefined){
+                ul.innerHTML = "";// 删除原来的列表数据
+                suglist.style.display = "block";
+                data.forEach(function (el) {
+                    var li = document.createElement("li");
+                    li.innerText = el.q;//  el.q 是取出数据（要调试才知道）
+                    ul.appendChild(li);
+
+                    // 开始搜索
+                    li.onclick = function () {
+                        window.location.href = "https://www.baidu.com/s?wd=" + this.innerText;
+                    }
+                })
+            }else{
+                suglist.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
