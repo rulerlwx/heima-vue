@@ -31,8 +31,8 @@
                     });
                 },
                 jsonpInfo(){
-                    this.$http.jsonp('http://127.0.0.1:8080/vue/post').then(function (_jsonpd37sod0bni4) {
-                        console.log(_jsonpd37sod0bni4.body)
+                    this.$http.jsonp('http://127.0.0.1:8080/vue/jsonp').then(result => {
+                        console.log("result:"+result)
                     })
                 }
             }
