@@ -40,6 +40,8 @@
         </table>
     </div>
     <script>
+        Vue.http.options.root = 'http://www.liulongbin.top:3005/';
+        Vue.http.options.emulateJSON = true;// 全局启用 emulateJSON，这样 $http.post()中就不用写了
         // 全局-过滤器-时间格式化
         // pattern="" 默认赋值为""
         Vue.filter('dateFormat', function (dateStr, pattern="") {
@@ -91,7 +93,7 @@
             },
             methods: {
                 getAllList(){
-                  this.$http.get('http://www.liulongbin.top:3005/api/getprodlist').then(result => {
+                  this.$http.get('api/getprodlist').then(result => {
                       var result = result.body;
                       if (result.status === 0) {
                           this.list = result.message;
@@ -101,7 +103,7 @@
                   })
                 },
                 add() {
-                    this.$http.post('http://www.liulongbin.top:3005/api/addproduct',
+                    this.$http.post('api/addproduct',
                         {name:this.name},// id 不用传，后台自动生成
                         {emulateJSON: true})
                         .then(result =>{
@@ -116,7 +118,7 @@
                 },
                 // 删除
                 del(id) {
-                    this.$http.get('http://www.liulongbin.top:3005/api/delproduct/' + id).then(result => {
+                    this.$http.get('api/delproduct/' + id).then(result => {
                         if (result.body.status == 0) {
                             // 刷新页面数据
                             this.getAllList();

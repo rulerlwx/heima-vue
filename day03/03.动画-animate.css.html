@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画-animate.css</title>
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" href="../css/animate.css">
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--需求：点击按钮，让 h3 显示或隐藏-->
+    <input type="button" value="toggle" @click="flag=!flag"/>
+    <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+        <h3 v-if="flag">这是一个H3</h3>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            flag:true
+        },
+        methods:{}
+    })
+</script>
+</body>
+</html>
