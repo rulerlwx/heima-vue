@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件-创建组件方式二</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-com2></my-com2>
+    </div>
+    <script>
+        // 要有一个根元素来包裹，如 div
+        Vue.component('myCom2', {
+            template:'<div><h3>这是直接创建的组件</h3><span>112</span></div>'
+        });
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{}
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件-创建组件方式三</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--使用定义的组件-->
+        <my-com3/>
+    </div>
+    <!--在 app 外部定义一个组件-->
+    <template id="tmp1">
+        <div>
+            <h1>这是通过 template 标签，在外部定义的组件</h1>
+            <h4>不错，好用</h4>
+        </div>
+    </template>
+    <script>
+        Vue.component('myCom3', {
+            template:'#tmp1' // 引用被控制的 #app 之外的 template
+        });
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{}
+        })
+    </script>
+</body>
+</html>
