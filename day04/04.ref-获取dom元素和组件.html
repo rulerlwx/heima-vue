@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ref-获取dom元素和组件</title>
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="获取元素" @click="getElement" ref="mybtn"/>
+        <h3 id="myh3" ref="myh3">这是一个H3</h3>
+
+        <!--子组件-->
+        <login ref="mylogin"></login>
+    </div>
+    <template id="temp1">
+        <h1 ref="sunh1">这是一个登录组件</h1>
+    </template>
+    <script>
+        var com1 = {
+            template: '#temp1',
+            data: function () {
+                return {
+                    msg:'sum msg'
+                }
+            },
+            methods: {
+                show(){
+                    console.log("子组件 show()")
+                }
+            }
+        }
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+                getElement(){
+                    // 访问元素（值）
+                    console.log(this.$refs.myh3.innerText);
+                    // 访问子组件的数据、方法
+                    console.log(this.$refs.mylogin.msg);
+                    this.$refs.mylogin.show();
+
+                    // 父组件可以拿到子组件元素
+                    console.log(this.$refs.mylogin.$refs.sunh1.innerText);
+                }
+            },
+            components:{
+                login: com1
+            }
+        })
+    </script>
+</body>
+</html>

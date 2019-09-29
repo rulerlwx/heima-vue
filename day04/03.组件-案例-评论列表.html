@@ -44,7 +44,8 @@
             methods: {
                 postComment() {
                     var comment = {id: Date.now(), user: this.user, content: this.content};
-                    // 从 localStorage 中获取所有评论，原理： (localStorage.getItem('a') || '[]') = []
+                    // 从 localStorage 中获取所有评论，如果获取的数据为 null ，则返回 []
+                    // 原理： (localStorage.getItem('a') || '[]') = []
                     var list = JSON.parse(localStorage.getItem('cmts') || '[]');
                     list.unshift(comment);
                     // 重新保存最新的评论数据
