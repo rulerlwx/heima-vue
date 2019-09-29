@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件-父组件向子组件传值</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <com1 v-bind:parentmsg="msg"></com1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'123-父组件中的msg'
+            },
+            methods:{},
+            components:{
+                // 子组件默认访问不到父组件中 data 中的数据
+                com1:{
+                    // 子组件需要声明属性，用于接收父组件的传值
+                    props:['parentmsg'],
+                    template:'<h1>这是一个子组件--- {{parentmsg}}</h1>'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

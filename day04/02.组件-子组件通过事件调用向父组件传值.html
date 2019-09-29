@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件-子组件通过事件调用向父组件传值</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <com2 @func123="show"></com2>
+    </div>
+    <template id="temp1">
+        <div>
+            <h1>这是子组件</h1>
+            <input type="button" value="子组件按钮-调用父组件事件" @click="myclick"/>
+        </div>
+    </template>
+
+    <script>
+        // 定义一个字面量类型的组件模板对象
+        // 子组件
+        var com2 = {
+            template:'#temp1',
+            data:function () {
+                return {
+                    sunmsg:{name:'小头儿子',age:6}
+                }
+            },
+            methods: {
+                myclick(){
+                    // 从第2个参数开始，可以传多个参数
+                    this.$emit('func123',this.sunmsg);
+                }
+            }
+        }
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msgFromSun:null
+            },
+            methods:{
+                show(data){
+                    this.msgFromSun = data;
+                    console.log(this.msgFromSun)
+                }
+            },
+            components: {
+                com2,
+            }
+        })
+    </script>
+</body>
+</html>
