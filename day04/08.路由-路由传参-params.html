@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由传参-params</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/login/10">登录</router-link>
+        <router-link to="/register/03/ls">注册</router-link>
+
+        <router-view></router-view>
+    </div>
+    <script>
+        var login = {
+            template:'<h2>这是登录组件 {{$route.params.id}}</h2>',
+        }
+        var register = {
+            template:'<h2>这是注册组件 {{$route.params.id}}---{{$route.params.name}}</h2>'
+        }
+        var vueRouter = new VueRouter({
+            routes:[
+                {path:'/login/:id',component:login},
+                {path:'/register/:id/:name',component: register}
+            ]
+        });
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{},
+            router:vueRouter,
+            created(){
+                console.log(this.$route)
+                console.log(this.$route.params.id)
+            }
+        })
+    </script>
+</body>
+</html>

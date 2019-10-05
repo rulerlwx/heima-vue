@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由规则中定义参数</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/login?id=10&name=zs">登录</router-link>
+        <router-link to="/register">注册</router-link>
+
+        <router-view></router-view>
+    </div>
+    <script>
+        var login = {
+            template:'<h2>这是登录组件：{{this.$route.query.id}} --- {{$route.query.name}}</h2>',
+            // 组件生命周期钩子函数
+            // 可以打印 this.$route ，据此提供思路来取值
+            created(){
+                console.log(this.$route.query.id);
+            }
+        }
+        var register = {
+            template:'<h2>这是注册组件</h2>'
+        }
+        var vueRouter = new VueRouter({
+            routes:[
+                {path:'/login',component:login},
+                {path:'/register',component: register}
+            ]
+        });
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{},
+            router:vueRouter// 如果属性名、属性值都是 router，可以简写成 router
+        })
+    </script>
+</body>
+</html>

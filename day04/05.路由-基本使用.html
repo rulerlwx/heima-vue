@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由-基本使用</title>
+    <!--导入包，注意顺序-->
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+    <style>
+        .router-link-active {
+            color: red;
+            font-weight: 800;
+            font-size: 80px;
+            font-style: italic;
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+
+<!--        <a href="#/login">登录</a>-->
+<!--        <a href="#/register">注册</a>-->
+
+        <router-link to="/login">登录2</router-link>
+        <router-link to="/register">注册2</router-link>
+
+        <!-- vue-router 提供的占位符，根据路由规则，匹配到的元素就会展示在这里-->
+        <router-view></router-view>
+    </div>
+    <script>
+        // 模板对象
+        var login = {
+            template:'<h2>这是登录组件</h2>'
+        }
+        var register = {
+            template:'<h2>这是注册组件</h2>'
+        }
+        var vueRouter = new VueRouter({
+            // 路由匹配规则
+            routes:[
+                // 有两个固定属性，path：路由地址，component：对应的组件对象（不是名称）
+                {path:'/login',component:login}, // 注意，如果定成 component:'login' ，是错误的
+                {path:'/register',component: register},
+                {path:'/',redirect:'/login'}
+            ]
+        });
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{},
+            // 将路由对象关联到 vm
+            router:vueRouter
+        })
+    </script>
+</body>
+</html>
